@@ -5,6 +5,9 @@ var exphbs= require('express-handlebars');
 var app = express();
 app.use(express.static('public'));
 
+var fs = require ('fs');
+
+
 app.use(express.urlencoded({extended: true}));
 
 app.engine('handlebars', exphbs());
@@ -24,7 +27,11 @@ app.get('/', function(request, response){
 
 app.post('/login', function(request,response){
     console.log(request.body);
-    response.send('hola');
+    fs.writeFile('info.txt','Datos: '+ 'correo: '+ request.body.correo+ ' ' + 'contrasena: '+request.body.contrasena , 'utf8',function(){
+        console.log('archivo escrito');
+        });
+
+    response.redirect('/bienvenida');
 });
 
 
